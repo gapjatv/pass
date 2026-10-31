@@ -8,6 +8,10 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="갑자 금고">
 <meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <title>갑자 금고</title>
 <style>
 :root{--bg:#14161c;--card:#1e2129;--card2:#262a34;--line:#323744;--tx:#eef0f5;--sub:#9aa1b2;--ac:#6c8cff;--ok:#2ecc71;--warn:#ff8c42;--bad:#ff5c6c}
@@ -527,6 +531,11 @@ document.addEventListener('visibilitychange', () => {
 if (!window.crypto || !crypto.subtle){
   document.body.innerHTML = '<p style="padding:30px">이 페이지는 https 주소에서만 동작합니다. (GitHub Pages 등)</p>';
 } else if (CFG) show('lock'); else show('setup');
+
+/* ───── 홈 화면 설치(PWA) — 오프라인에서도 앱 화면이 열리도록 ───── */
+if ('serviceWorker' in navigator){
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
 })();
 </script>
 </body>
